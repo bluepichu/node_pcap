@@ -180,7 +180,7 @@ TCPSession.prototype.ESTAB = function (packet) {
                     this.send_retrans[tcp.seqno + tcp.dataLength] = 1;
                 }
             } else {
-                this.emit("data send", this, tcp.data);
+                this.emit("data send", this, tcp.data, tcp.seqno);
             }
             this.send_bytes_payload += tcp.dataLength;
             this.send_packets[tcp.seqno + tcp.dataLength] = this.current_cap_time;
@@ -204,7 +204,7 @@ TCPSession.prototype.ESTAB = function (packet) {
                     this.recv_retrans[tcp.seqno + tcp.dataLength] = 1;
                 }
             } else {
-                this.emit("data recv", this, tcp.data);
+                this.emit("data recv", this, tcp.data, tcp.seqno);
             }
             this.recv_bytes_payload += tcp.dataLength;
             this.recv_packets[tcp.seqno + tcp.dataLength] = this.current_cap_time;
